@@ -65,9 +65,13 @@ return (
         ></textarea>
     </div>
       {/* Submit button */}
+      <div>
+      <br></br>
     <button type="submit" className="btn btn-primary">
         Add Car
-    </button>
+    </button> 
+    
+    </div>
     </form>
 );
 };

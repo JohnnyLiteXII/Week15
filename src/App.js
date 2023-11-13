@@ -5,8 +5,6 @@ Using the Houses API, or any open API of your choice you can find online, create
 Create a React component (or more, if needed) to represent the resource.
 Make all forms and other necessary UI pieces their own components as reasonable.
 
-
-
 */
 import React, { useState, useEffect } from 'react';
 import './App.css';
@@ -19,6 +17,9 @@ import Footer from './components/Footer/Footer.js';
 import EditCarForm from './components/EditCarForm';
 import AddCarForm from './components/AddCarForm';
 import CarCard from './components/CarCard';
+
+const URL = "https://655106ab7d203ab6626e742a.mockapi.io/carlist";
+
 
 const App = () => {
 
@@ -38,10 +39,10 @@ const App = () => {
     setError(null);
 
     // Fetch cars from the API
-    fetch('https://655106ab7d203ab6626e742a.mockapi.io/carlist')
+    fetch(URL)
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('No Car');
         }
         return response.json();
       })
@@ -59,7 +60,7 @@ const App = () => {
   const handleEditCar = (car) => {
 
     // Update the car data via a PUT request
-    fetch(`https://655106ab7d203ab6626e742a.mockapi.io/carlist${car.id}`, {
+    fetch(`${URL}/${car.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -85,7 +86,7 @@ const App = () => {
   const handleDeleteCar = (carId) => {
 
     // Delete the car via a DELETE request
-    fetch(`https://655106ab7d203ab6626e742a.mockapi.io/carlist/${carId}`, {
+    fetch(`${URL}/${carId}`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -132,12 +133,13 @@ const App = () => {
       <ToastContainer position="top-right" />
 
       {/* Render the Navbar */}
-      <Navbar />
+      <div class="container-fluid">
+        <Navbar />
+      </div>
       <br />
-      <header className="App-header">
-        
-        <h2 className="App-title">Car App</h2>
-      </header>
+      <div class="container">
+      <h1 class="text-center">Car App</h1>
+      </div>
       <br />
       <div className="container">
         <div className="row">
@@ -157,6 +159,7 @@ const App = () => {
           ) : (
             /* CarCard components for displaying each car */
             cars.map((car) => (
+              
               <CarCard
                 key={car.id}
                 car={car}
