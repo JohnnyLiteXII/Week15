@@ -146,7 +146,7 @@ const App = () => {
           <div className="col">
 
             {/* AddCarForm component for adding new cars */}
-            <AddCarForm onAddCar={handleAddCar} />
+            <AddCarForm onSubmit={handleAddCar} />
 
           </div>
         </div>

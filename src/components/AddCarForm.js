@@ -70,7 +70,6 @@ return (
     <button type="submit" className="btn btn-primary">
         Add Car
     </button> 
-    
     </div>
     </form>
 );
