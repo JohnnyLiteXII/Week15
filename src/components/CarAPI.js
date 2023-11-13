@@ -1,6 +1,7 @@
 import { ToastContainer, toast } from "react-toastify";
 const URL = "https://655106ab7d203ab6626e742a.mockapi.io/carlist";
 
+// Function to handle adding a new car
 class CarAPI {
   // API call will go here
 

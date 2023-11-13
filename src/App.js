@@ -96,8 +96,6 @@ const App = () => {
       });
   };
 
-  // Function to handle adding a new car
-
   return (
     <div className="App">
       {/* Display toasts for notifications */}

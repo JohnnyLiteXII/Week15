@@ -1,27 +1,27 @@
 // src/components/EditCarForm.js
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const EditCarForm = ({ car, onSave, onCancel }) => {
   // State to manage the edited car details
-const [editedCar, setEditedCar] = useState({ ...car });
+  const [editedCar, setEditedCar] = useState({ ...car });
 
   // Handle input changes
-const handleInputChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedCar({ ...editedCar, [name]: value });
-};
+  };
 
   // Handle form submission
-const handleSave = () => {
+  const handleSave = () => {
     onSave(editedCar);
-};
+  };
 
-return (
+  return (
     <div className="modal-body">
-    <form>
+      <form>
         <div className="form-group">
-        <label htmlFor="editCarName">Car Name</label>
-        <input
+          <label htmlFor="editCarName">Car Name</label>
+          <input
             type="text"
             className="form-control"
             id="editCarName"
@@ -29,11 +29,11 @@ return (
             value={editedCar.carName}
             onChange={handleInputChange}
             placeholder="Car Name"
-        />
+          />
         </div>
         <div className="form-group">
-        <label htmlFor="editImgUrl">Image URL</label>
-        <input
+          <label htmlFor="editImgUrl">Image URL</label>
+          <input
             type="text"
             className="form-control"
             id="editImgUrl"
@@ -41,11 +41,11 @@ return (
             value={editedCar.imgUrl}
             onChange={handleInputChange}
             placeholder="Image URL"
-        />
+          />
         </div>
         <div className="form-group">
-        <label htmlFor="editCarDescription">Car Details</label>
-        <textarea
+          <label htmlFor="editCarDescription">Car Details</label>
+          <textarea
             className="form-control"
             id="editCarDescription"
             name="carDescription"
@@ -53,19 +53,19 @@ return (
             onChange={handleInputChange}
             rows="3"
             placeholder="Car Details"
-        ></textarea>
+          ></textarea>
         </div>
-    </form>
-    <div className="modal-footer">
+      </form>
+      <div className="modal-footer">
         <button type="button" className="btn btn-secondary" onClick={onCancel}>
-        Cancel
+          Cancel
         </button>
         <button type="button" className="btn btn-primary" onClick={handleSave}>
-        Save Changes
+          Save Changes
         </button>
+      </div>
     </div>
-    </div>
-);
+  );
 };
 
 export default EditCarForm;
