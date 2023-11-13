@@ -6,23 +6,21 @@ Create a React component (or more, if needed) to represent the resource.
 Make all forms and other necessary UI pieces their own components as reasonable.
 
 */
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import Navbar from './components/NavBar/Navbar.js';
-import Footer from './components/Footer/Footer.js';
-import EditCarForm from './components/EditCarForm';
-import AddCarForm from './components/AddCarForm';
-import CarCard from './components/CarCard';
+import Navbar from "./components/NavBar/Navbar.js";
+import Footer from "./components/Footer/Footer.js";
+import EditCarForm from "./components/EditCarForm";
+import AddCarForm from "./components/AddCarForm";
+import CarCard from "./components/CarCard";
 
 const URL = "https://655106ab7d203ab6626e742a.mockapi.io/carlist";
 
-
 const App = () => {
-
   // State to manage the list of cars
   const [cars, setCars] = useState([]);
 
@@ -42,7 +40,7 @@ const App = () => {
     fetch(URL)
       .then((response) => {
         if (!response.ok) {
-          throw new Error('No Car');
+          throw new Error("No Car");
         }
         return response.json();
       })
@@ -58,12 +56,11 @@ const App = () => {
 
   // Function to handle editing a car
   const handleEditCar = (car) => {
-
     // Update the car data via a PUT request
     fetch(`${URL}/${car.id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(car),
     })
@@ -74,80 +71,52 @@ const App = () => {
           prevCars.map((c) => (c.id === updatedCar.id ? updatedCar : c))
         );
         setSelectedCar(null);
-        toast.success('Car updated successfully');
+        toast.success("Car updated successfully");
       })
       .catch((error) => {
-        console.error('Error updating car:', error);
-        toast.error('Error updating car');
+        console.error("Error updating car:", error);
+        toast.error("Error updating car");
       });
   };
 
   // Function to handle deleting a car
   const handleDeleteCar = (carId) => {
-
     // Delete the car via a DELETE request
     fetch(`${URL}/${carId}`, {
-      method: 'DELETE',
+      method: "DELETE",
     })
       .then(() => {
-
         // Remove the deleted car from the car list
         setCars((prevCars) => prevCars.filter((car) => car.id !== carId));
-        toast.success('Car deleted successfully');
+        toast.success("Car deleted successfully");
       })
       .catch((error) => {
-        console.error('Error deleting car:', error);
-        toast.error('Error deleting car');
+        console.error("Error deleting car:", error);
+        toast.error("Error deleting car");
       });
   };
 
   // Function to handle adding a new car
 
-  const handleAddCar = (newCar) => {
-
-    // Add a new car via a POST request
-    fetch('https://655106ab7d203ab6626e742a.mockapi.io/carlist', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newCar),
-    })
-      .then((response) => response.json())
-      .then((addedCar) => {
-
-        // Add the new car to the car list
-        setCars((prevCars) => [...prevCars, addedCar]);
-        toast.success('Car added successfully');
-      })
-      .catch((error) => {
-        console.error('Error adding car:', error);
-        toast.error('Error adding car');
-      });
-  };
-
   return (
     <div className="App">
-
       {/* Display toasts for notifications */}
       <ToastContainer position="top-right" />
 
       {/* Render the Navbar */}
-      <div class="container-fluid">
+      <div className="container-fluid">
         <Navbar />
       </div>
       <br />
-      <div class="container">
-      <h1 class="text-center">Car App</h1>
+      <div className="container">
+        <h1 className="text-center">Car App</h1>
       </div>
       <br />
       <div className="container">
         <div className="row">
           <div className="col">
-
             {/* AddCarForm component for adding new cars */}
-            <AddCarForm onSubmit={handleAddCar} />
-
+            <AddCarForm />
           </div>
         </div>
         <div className="row">
@@ -159,7 +128,6 @@ const App = () => {
           ) : (
             /* CarCard components for displaying each car */
             cars.map((car) => (
-              
               <CarCard
                 key={car.id}
                 car={car}
@@ -170,7 +138,7 @@ const App = () => {
           )}
         </div>
       </div>
-      
+
       {/* EditCarForm component for editing selected car */}
       {selectedCar && (
         <EditCarForm
@@ -179,7 +147,7 @@ const App = () => {
           onCancel={() => setSelectedCar(null)}
         />
       )}
-      
+
       <Footer />
     </div>
   );
